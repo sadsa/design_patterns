@@ -4,12 +4,12 @@ abstract class MartialArtist {
     public lastName: string;
     public style: string;
 
-    get fullName(): string {
+    getFullName(): string {
         return `${this.firstName} ${this.lastName}`
     }
 
-    get description(): string {
-        return `${this.fullName} - ${this.style}`
+    getDescription(): string {
+        return `${this.getFullName()} - ${this.style}`
     }
 }
 
@@ -31,7 +31,7 @@ class KungFuMaster extends MartialArtist {
 
 abstract class MartialArtistOptions extends MartialArtist {
     martialArtist: MartialArtist;
-    abstract get description(): string;
+    abstract getDescription(): string;
 }
 
 class Weapon {
@@ -46,20 +46,22 @@ class WeaponsMaster extends MartialArtistOptions {
         super();
         this.martialArtist = martialArtist;
     }
-    get dps(): number {
+    getDps(): number {
         let totalDps: number = 0;
         for (let i = 0; i <= this.weapons.length; i++) {
             totalDps += this.weapons[i].damagePerSecond;
         }
         return totalDps;
     };
-    get description(): string {
-        return this.description + ', with weapons...Look out!'
+    getDescription(): string {
+        return this.martialArtist.getDescription() + ', now with weapons...Look out!'
     }
 }
 
 // Decoration
 
 let jackieChan = new KungFuMaster();
+console.log(jackieChan.getDescription());
 jackieChan = new WeaponsMaster(jackieChan); // decorated
+console.log(jackieChan.getDescription());
 
